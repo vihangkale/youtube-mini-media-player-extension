@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YouTube Control</title>
+    <style>
+      /* Import Material Design Font */
+      @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+      /* Global Styles */
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #121212; /* Material Black Background */
+        color: #ffffff; /* White text */
+        margin: 0;
+        padding: 16px;
+        width: 322;
+      }
+
+      /* Container Styles */
+      .seek-container,
+      .action-container,
+      .volume-container {
+        display: flex;
+        align-items: center;
+      }
+      .volume-container {
+        gap: 0.5rem;
+        height: 4px;
+        margin-bottom: 16px;
+      }
+
+      .volume-container input::-moz-range-progress {
+        background-color: red;
+      }
+
+      .volume-container input::-moz-range-track {
+        background-color: #ddd;
+      }
+      .volume-container img {
+        width: 24px;
+        height: 24px;
+      }
+      .volume-container input {
+        margin: 0;
+        outline: 0;
+        border: 0;
+        border-radius: 500px;
+        max-width: 100%;
+        transition: box-shadow 0.2s ease-in-out;
+        width: 100%;
+        height: 4px;
+      }
+      .time-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      /* Seek Bar Container */
+      .seek-container {
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+        height: fit-content;
+      }
+
+      .seek-container span {
+        font-size: 12px;
+        color: #ffffff;
+      }
+
+      .seekBar {
+        width: 100%;
+        background: transparent;
+        cursor: pointer;
+        height: 6px;
+      }
+      .seekBar:hover {
+        background-color: transparent;
+        color: transparent;
+      }
+      .action-container {
+        margin-bottom: 16px;
+        gap: 1rem;
+      }
+
+      .action-container button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        height: 32px;
+      }
+
+      .action-container button:focus {
+        outline: none;
+      }
+
+      .action-container img {
+        width: 32px;
+        height: 32px; /* Makes icons white */
+        transition: transform 0.2s, filter 0.2s;
+      }
+
+      .action-container img:hover {
+        transform: scale(1.1);
+        filter: brightness(50%) sepia(100%) saturate(10000%) hue-rotate(0deg);
+      }
+
+      button:hover img {
+        filter: brightness(50%) sepia(100%) saturate(10000%) hue-rotate(0deg);
+      }
+      input[type="range"] {
+        accent-color: #f00;
+      }
+
+      input[type="range"]:hover {
+        /* Remove hover effect */
+        background: transparent;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        /* Remove hover effect from the thumb */
+        background: transparent;
+        border-color: transparent;
+      }
+      select {
+        height: 32px;
+        background-color: transparent;
+        color: #ffffff;
+        border-radius: 6px;
+        border: 0;
+        outline: 0;
+        font-size: 1rem;
+        padding-inline: 0.5rem;
+        cursor: pointer;
+      }
+      select:focus-visible {
+        border: 0;
+        outline: 0;
+      }
+      select option {
+        height: 32px;
+        min-height: 32px;
+        padding-block: 1rem;
+        color: #ffffff;
+        background-color: #121212; /* Material Black Background */
+        border: 0;
+        outline: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h4>You Tube Shortcuts</h4> -->
+    <!-- <h5 id="video-title">Loading video title...</h5> -->
+    <div class="volume-container">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#ffffff"
+      >
+        <path d="M223.87-438.5v-83h512.26v83H223.87Z" />
+      </svg>
+      <input
+        class="volume-slider"
+        type="range"
+        id="volume-slider"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#ffffff"
+      >
+        <path
+          d="M438.5-438.5H231.87v-83H438.5v-206.63h83v206.63h206.63v83H521.5v206.63h-83V-438.5Z"
+        />
+      </svg>
+    </div>
+    <div class="action-container">
+      <!-- <button id="muteBtn">
+        <img src="./assets/icons/volume_off.svg" alt="mute" />
+      </button> -->
+      <button id="playPauseBtn">
+        <img src="./assets/icons/play_circle.svg" alt="play pause" />
+      </button>
+      <button id="nextBtn">
+        <img src="./assets/icons/skip.svg" alt="Skip Video" />
+      </button>
+      <select id="speed-selector">
+        <option value="0.25">0.25x</option>
+        <option value="0.5">0.5x</option>
+        <option value="0.75">0.75x</option>
+        <option value="1" selected>1x</option>
+        <option value="1.25">1.25x</option>
+        <option value="1.5">1.5x</option>
+        <option value="1.75">1.75x</option>
+        <option value="2">2x</option>
+      </select>
+
+      <select id="quality-selector">
+        <option value="auto">Auto</option>
+        <option value="144p">144p</option>
+        <option value="240p">240p</option>
+        <option value="360p">360p</option>
+        <option value="480p">480p</option>
+        <option value="720p">720p</option>
+        <option value="1080p">1080p</option>
+        <option value="1440p">1440p</option>
+        <option value="2160p">2160p</option>
+      </select>
+      <button id="fullscreen-btn">
+        <img src="./assets/icons/fullscreen.svg" alt="fullscreen" />
+      </button>
+    </div>
+    <div class="seek-container">
+      <input
+        class="seekBar"
+        type="range"
+        id="seek-slider"
+        min="0"
+        max="100"
+        step="1"
+        value="0"
+      />
+      <div class="time-wrapper">
+        <span id="current-time">00:00</span>
+        <span id="total-duration">00:00</span>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

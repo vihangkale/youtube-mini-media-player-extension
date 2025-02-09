@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Mini Media Player",
+  "version": "1.0",
+  "description": "A compact media player for YouTube that allows you to play, pause, seek, and control volume effortlessly. It also includes features for fullscreen mode, adjusting video quality, and modifying playback speed.",
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "redIcon.png"
+  },
+  "icons": {
+    "128": "redIcon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
