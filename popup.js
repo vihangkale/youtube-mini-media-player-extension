@@ -6,20 +6,6 @@ document.getElementById("playPauseBtn").addEventListener("click", function () {
   setTimeout(updatePlayPauseButton, 100);
 });
 
-// document.getElementById("muteBtn").addEventListener("click", function () {
-//   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-//     // Send message to content script to toggle mute
-//     const muteBtn = document.querySelector(".ytp-mute-button");
-//     const video = document.querySelector("video");
-//     console.log(muteBtn, video, "videovideovideo");
-//     if (video) {
-//       video = !video.mute;
-//     }
-//     if (muteBtn) {
-//       muteBtn.click();
-//     }
-//   });
-// });
 document.getElementById("nextBtn").addEventListener("click", function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     // Send message to content script to toggle mute
@@ -41,40 +27,6 @@ function formatTime(seconds) {
   const secs = Math.floor(seconds % 60);
   return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
-// function fetchVideoTitle() {
-//   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//     const activeTab = tabs[0];
-//     if (activeTab.url.includes("youtube.com/watch")) {
-//       chrome.scripting.executeScript(
-//         {
-//           target: { tabId: activeTab.id },
-//           func: () => {
-//             // const titleElement = document.querySelector(
-//             //   "h1.title yt-formatted-string"
-//             // );
-//             // return titleElement ? titleElement.innerText : "Title not found";
-//             const checkTitle = () => {
-//               const titleElement = document.querySelector(
-//                 "div#title h1 yt-formatted-string"
-//               );
-//               if (titleElement) {
-//                 return titleElement.innerText;
-//               } else {
-//                 // setTimeout(checkTitle, 100); // Retry after 100ms if title element not found yet
-//               }
-//             };
-//             return checkTitle();
-//           },
-//         },
-//         (results) => {
-//           if (results && results[0] && results[0].result !== undefined) {
-//             videoTitleElement.innerText = results[0].result;
-//           }
-//         }
-//       );
-//     }
-//   });
-// }
 
 function updatePlayPauseButton() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -94,7 +46,6 @@ function updatePlayPauseButton() {
             img.src = results[0].result
               ? " ./assets/icons/play_circle.svg"
               : "./assets/icons/pause_circle.svg";
-            // playPauseBtn.innerText = results[0].result ? "Play" : "Pause";
           }
         }
       );
@@ -119,32 +70,6 @@ function setVolume(volume) {
     }
   });
 }
-// Function to update the seekbar
-// function updateSeekbar() {
-//   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//     const activeTab = tabs[0];
-//     if (activeTab.url.includes("youtube.com/watch")) {
-//       chrome.scripting.executeScript(
-//         {
-//           target: { tabId: activeTab.id },
-//           func: () => {
-//             const video = document.querySelector("video");
-//             if (video) {
-//               const progress = (video.currentTime / video.duration) * 100;
-//               return progress;
-//             }
-//             return 0;
-//           },
-//         },
-//         (results) => {
-//           if (results && results[0] && results[0].result !== undefined) {
-//             seekSlider.value = results[0].result;
-//           }
-//         }
-//       );
-//     }
-//   });
-// }
 function updateSeekbarAndTime() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const activeTab = tabs[0];

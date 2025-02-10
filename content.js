@@ -23,7 +23,7 @@ function volumeSlider() {
   video.volume = volumeSliderEle.value;
 }
 // Listen for messages from popup.js
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "togglePlayPause") {
     togglePlayPause();
   } else if (request.action === "nextVideo") {
